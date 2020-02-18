@@ -368,24 +368,23 @@ summary {
 
 <pre class="r"><code>x &lt;- read_excel(&quot;class_enrollment_summary_by_term2.18.20.xlsx&quot;, skip =3) %&gt;% 
   clean_names() %&gt;% 
-  filter(! is.na(course_name)) %&gt;% 
+  filter(!is.na(course_name), course_department != &quot;General Education&quot;)
+
+top_5 &lt;- x %&gt;% 
   group_by(course_department) %&gt;% 
   summarize(sum=sum(total)) %&gt;% 
+  arrange(desc(sum)) %&gt;% 
+  head(5) %&gt;% 
   print()</code></pre>
-<pre><code>## # A tibble: 79 x 2
-##    course_department                sum
-##    &lt;chr&gt;                          &lt;dbl&gt;
-##  1 African &amp; African Amer Studies   728
-##  2 American Studies                  31
-##  3 Anthropology                     305
-##  4 Applied Computation              221
-##  5 Applied Mathematics              520
-##  6 Applied Physics                  255
-##  7 Arch, Landscape &amp; Urban Plan      22
-##  8 Art, Film, and Visual Studies    434
-##  9 Astronomy                        189
-## 10 Bio Sciences in Dental Med         2
-## # … with 69 more rows</code></pre>
+<pre><code>## # A tibble: 5 x 2
+##   course_department   sum
+##   &lt;chr&gt;             &lt;dbl&gt;
+## 1 Economics          3289
+## 2 Computer Science   1852
+## 3 Mathematics        1753
+## 4 Government         1734
+## 5 Psychology         1520</code></pre>
+<pre class="r"><code>#top_course</code></pre>
 
 
 

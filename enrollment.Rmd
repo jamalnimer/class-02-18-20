@@ -15,10 +15,16 @@ library(gt)
 ```{r}
 x <- read_excel("class_enrollment_summary_by_term2.18.20.xlsx", skip =3) %>% 
   clean_names() %>% 
-  filter(! is.na(course_name)) %>% 
+  filter(!is.na(course_name), course_department != "General Education")
+
+top_5 <- x %>% 
   group_by(course_department) %>% 
   summarize(sum=sum(total)) %>% 
+  arrange(desc(sum)) %>% 
+  head(5) %>% 
   print()
+
+#top_course
 ```
 
 
